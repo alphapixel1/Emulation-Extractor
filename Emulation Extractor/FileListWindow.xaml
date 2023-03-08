@@ -5,28 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Emulation_Extractor"
         mc:Ignorable="d"
-        Title="Scanned Files" Width="733" WindowStyle="ToolWindow"
-        ResizeMode="CanResize" Height="376" Loaded="Window_Loaded">
+        Title="Scanned Files" Width="733"
+        ResizeMode="CanResize" Height="376" Loaded="Window_Loaded"
+        >
     <Grid Background="#FF2D2D2D">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="1" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Background="White" ScrollViewer.CanContentScroll="True" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView Grid.Row="1" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Background="White" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.View>
                 <GridView>
-
-                    <GridViewColumn Header="File Name" Width="120" DisplayMemberBinding="{Binding NameNoExtension}"></GridViewColumn>
+                    <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}"></GridViewColumn>
                     <GridViewColumn Header="Emulator" Width="120" DisplayMemberBinding="{Binding EmulatorName}"></GridViewColumn>
-                    <GridViewColumn Header="Path" Width="auto" DisplayMemberBinding="{Binding FilePath}"></GridViewColumn>
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding NameNoExtension}" Foreground="Red"/>
+                        <DataTemplate DataType="GameFile">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                                
+                                <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
