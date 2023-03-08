@@ -66,9 +66,28 @@ namespace Emulation_Extractor
             else
             {
                 var files=DirectoryScanner.getFiles(selectedDirectory);
-                this.Close();
-                new FileListWindow(files).ShowDialog();
                 
+                var gFiles= files.Select(e => new GameFile(e)).ToList();
+                var zips = gFiles.Count(e=>e.isZip);
+                if (zips>0)
+                {
+                    MessageBoxResult result= System.Windows.MessageBox.Show("There are ("+zips+") Zip files, would you like them to be unzipped before scanning?","Zip Files", MessageBoxButton.YesNoCancel,MessageBoxImage.Question);
+                    switch (result)
+                    {
+                        case MessageBoxResult.Yes:
+                            this.Close();
+                            break;
+                        case MessageBoxResult.No:
+                            this.Close();
+                            new FileListWindow(gFiles).ShowDialog();
+                            break;
+                    }
+                }
+                else
+                {
+                    this.Close();
+                    new FileListWindow(gFiles).ShowDialog();
+                }      
                 
             }
         }

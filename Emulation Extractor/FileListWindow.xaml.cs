@@ -22,9 +22,10 @@ namespace Emulation_Extractor
     public partial class FileListWindow : Window
     {
         public List<GameFile> GameFiles;
-        public FileListWindow(List<string> files)
+        public FileListWindow(List<GameFile> files)
         {
-            GameFiles=files.Select(e => new GameFile(e)).Where(e=>e.Emulator!=null || e.isZip).ToList();
+            //GameFiles= files;
+            GameFiles=files.Where(e=>e.Emulator!=null || e.isZip).ToList();
             InitializeComponent();
         }
 
