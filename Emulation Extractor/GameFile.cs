@@ -15,7 +15,7 @@ namespace Emulation_Extractor
             get
             {
                 if(Emulator == null)
-                    return isZip? "Zip":"None";
+                    return isZip? "Zip (Ignored)":"None";
                 return Emulator!.Name;
             }
         }

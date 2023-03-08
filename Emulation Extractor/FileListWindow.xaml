@@ -14,48 +14,64 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="1" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Background="White" d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}"></GridViewColumn>
-                    <GridViewColumn Header="Emulator" Width="120" DisplayMemberBinding="{Binding EmulatorName}"></GridViewColumn>
-                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
-                </GridView>
-            </ListView.View>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate DataType="GameFile">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-                                
-                                <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
-                            </StackPanel>
-                            
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <Expander IsExpanded="True">
-                                            <Expander.Header>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-                                                    <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
-                                                </StackPanel>
-                                            </Expander.Header>
-                                            <ItemsPresenter />
-                                        </Expander>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </ListView.GroupStyle>
-        </ListView>
+        <DockPanel Grid.Row="1">
+            <Grid DockPanel.Dock="Left" Margin="10,0" Width="250px">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="15">Emulators</TextBlock>
+                <ListBox Grid.Row="1" x:Name="EmulatorListBox" ItemsSource="{Binding}">
+                    <ListBoxItem>
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </ListBoxItem>     
+                </ListBox>
+               
+            </Grid>
+            <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Background="White" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}"></GridViewColumn>
+                        <GridViewColumn Header="Emulator" Width="120" DisplayMemberBinding="{Binding EmulatorName}"></GridViewColumn>
+                        <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate DataType="GameFile">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+
+                                    <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                        <GroupStyle.ContainerStyle>
+                            <Style TargetType="{x:Type GroupItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Expander IsExpanded="True">
+                                                <Expander.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                                                        <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Expander.Header>
+                                                <ItemsPresenter />
+                                            </Expander>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
+        </DockPanel>
+        
         <Grid Grid.Row="2" Height="28px">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -64,6 +80,7 @@
             <Button Margin="5,2">Go</Button>
             <Button Grid.Column="1" Margin="5,2">Cancel</Button>
         </Grid>
+        <DockPanel LastChildFill="False" Grid.RowSpan="2"/>
     </Grid>
     
 </Window>

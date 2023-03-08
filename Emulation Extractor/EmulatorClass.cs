@@ -29,9 +29,9 @@ namespace Emulation_Extractor
             }*/
         }
         [JsonProperty("fileType")]
-        public List<String> FileTypes;
+        public List<String> FileTypes { get; set; }
         [JsonProperty("name")]
-        public string Name;
+        public string Name { get; set; }
         public EmulatorClass(string name, List<string> fileTypes)
         {
             FileTypes = fileTypes;

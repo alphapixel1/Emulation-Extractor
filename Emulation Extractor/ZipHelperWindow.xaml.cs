@@ -56,7 +56,7 @@ namespace Emulation_Extractor
 
         private void ExtractAndScan_Click(object sender, RoutedEventArgs e)
         {
-            var selectedGameFiles = (List<GameFile>)ZipListView.SelectedItems;
+            var selectedGameFiles = ZipListView.SelectedItems.Cast<GameFile>().ToList();
             if (selectedGameFiles.Count > 0)
             {
                 this.Close();

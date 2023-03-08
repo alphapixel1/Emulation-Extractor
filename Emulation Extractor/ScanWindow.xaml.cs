@@ -45,7 +45,7 @@ namespace Emulation_Extractor
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
-                if (result.ToString() != String.Empty)
+                if (result.ToString() != String.Empty && fbd.SelectedPath!=String.Empty)
                 {
                     selectedDirectory = fbd.SelectedPath;
                 }
@@ -65,9 +65,7 @@ namespace Emulation_Extractor
             }
             else
             {
-                var files=DirectoryTools.getFiles(selectedDirectory);
-                
-                var gFiles= files.Select(e => new GameFile(e)).ToList();
+                var gFiles = DirectoryTools.getGameFiles(selectedDirectory);
                 var zips = gFiles.Count(e=>e.isZip);
                 if (zips>0)
                 {
@@ -80,14 +78,14 @@ namespace Emulation_Extractor
                             break;
                         case MessageBoxResult.No:
                             this.Close();
-                            new FileListWindow(gFiles).ShowDialog();
+                            new FileListWindow(gFiles, selectedDirectory).ShowDialog();
                             break;
                     }
                 }
                 else
                 {
                     this.Close();
-                    new FileListWindow(gFiles).ShowDialog();
+                    new FileListWindow(gFiles,selectedDirectory).ShowDialog();
                 }      
                 
             }

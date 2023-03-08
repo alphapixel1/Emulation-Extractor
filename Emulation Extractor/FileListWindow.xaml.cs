@@ -21,44 +21,27 @@ namespace Emulation_Extractor
     /// </summary>
     public partial class FileListWindow : Window
     {
+        private readonly string scanDirectory;
         public List<GameFile> GameFiles;
-        public FileListWindow(List<GameFile> files)
+        public FileListWindow(List<GameFile> files,string scanDirectory)
         {
             //GameFiles= files;
             GameFiles=files.Where(e=>e.Emulator!=null || e.isZip).ToList();
             InitializeComponent();
+            this.scanDirectory = scanDirectory;
         }
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FileListView.ItemsSource = GameFiles;
+            HashSet<EmulatorClass> ems = new(GameFiles.Select(e => e.Emulator));
+            //EmulatorListBox.ItemsSource= ems;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(FileListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("EmulatorName");
             //groupDescription.CustomSort =  new MyComparer();
             view.GroupDescriptions.Add(groupDescription);
             
         }
-      /*  public class MyComparer : IComparer<GameFile>,IComparer
-        {
-            public int Compare(GameFile x, GameFile y)
-            {
-                if (x.isZip)
-                    return -1;
-                else if (y.isZip)
-                    return 1;
-                else if (x.EmulatorName == "None")
-                    return 1;
-                else if (y.EmulatorName == "None")
-                    return -1;
-                return 0;
-            }
-
-            public int Compare(object? x, object? y)
-            {
-                //CollectionViewGroupInternal
-                return -1;
-            }
-        }*/
     }
 }

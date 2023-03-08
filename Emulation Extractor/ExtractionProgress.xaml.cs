@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Emulation_Extractor.DirectoryTools;
 
 namespace Emulation_Extractor
 {
@@ -34,15 +36,31 @@ namespace Emulation_Extractor
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            DirectoryTools.UnzipFiles(GameFiles, (a, b) =>
+            
+            DirectoryTools.UnzipFiles(GameFiles, deleteZips.HasValue? deleteZips.Value:false,this);
+        }
+        public delegate void updateProgress(UnzipUpdate update);
+        public event updateProgress ProgressUpdate;
+
+        public void changeProgress(UnzipUpdate update)
+        {
+            ProgressBarCompletion.Value = Math.Floor((update.remainingFiles / GameFiles.Count) * 100.0);
+            UpdateTextBlock.Text = "("+(GameFiles.Count - update.remainingFiles) +"/"+ GameFiles.Count +") " + update.fileName;
+            Debug.WriteLine("\t"+update.fileName);
+        }
+        public void extractionComplete(UnzipUpdate update)
+        {
+            if (update.remainingFiles > 0)
             {
-                ProgressBarCompletion.Value = Math.Floor((b.remainingFiles / GameFiles.Count) * 100.0);
-                UpdateTextBlock.Text = b.fileName;
-            }, (a, b) =>
-            {
-                ProgressBarCompletion.Value = 100;
                 this.Close();
-            },true);
+                MessageBox.Show("Extraction Complete", "(" + update.remainingFiles + ") Failed to be extracted");
+            }
+            else
+            {
+                this.Close();
+                var gFiles= DirectoryTools.getGameFiles(scanDirectoy);
+                new FileListWindow(gFiles, scanDirectoy).ShowDialog();
+            }
         }
     }
 }

@@ -7,10 +7,11 @@ using System.IO;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Threading;
+using System.Windows.Threading;
 
 namespace Emulation_Extractor
 {
-    internal class DirectoryTools
+    public class DirectoryTools
     {
         public static List<string> getFiles(string startingDirectory)
         {
@@ -31,7 +32,7 @@ namespace Emulation_Extractor
             public int remainingFiles;
             public string? errorMessage;
         }
-        public static async void UnzipFiles(List<GameFile> zipFiles, EventHandler<UnzipUpdate> updateHandler,EventHandler<int> completionHandler,bool deleteZipAfter)
+        public static async void UnzipFiles(List<GameFile> zipFiles,bool deleteZipAfter,ExtractionProgress ui)
         {
             await Task.Run(() =>
             {
@@ -41,28 +42,50 @@ namespace Emulation_Extractor
                     GameFile? zipFile = zipFiles[i];
                     try
                     {
-                        ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath));
-                        Thread.Sleep(20);
-                        File.Delete(zipFile.FilePath);
-                        updateHandler.BeginInvoke(zipFile, new UnzipUpdate()
+                        //Debug.WriteLine(Path.GetDirectoryName(zipFile.FilePath));
+                        if (Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension))
                         {
-                            fileName = zipFile.NameNoExtension,
-                            remainingFiles = zipFiles.Count - i,
-                        }, null, null);
+                            var z = 1;
+                            while (true)
+                            {
+                                if (!Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension + "(" + z + ")"))
+                                    break;
+                                z++;
+                            }
+                            ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension + "(" + z + ")");
+                        }
+                        else
+                        {
+                            ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension);
+                        }
+                        Thread.Sleep(25);
+                        ui.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                        {
+                            ui.changeProgress(new UnzipUpdate()
+                            {
+                                fileName = zipFile.NameNoExtension,
+                                remainingFiles = zipFiles.Count- i,
+                            });
+                        }));
+                        
+                      
                     }
                     catch
                     {
                         failedExtracts++;
-                        updateHandler.BeginInvoke(zipFile, new UnzipUpdate()
-                        {
-                            fileName = zipFile.NameNoExtension,
-                            remainingFiles = zipFiles.Count - i,
-                            errorMessage = "An Error Occured During Unzipping"
-                        }, null, null);
                     }
                 }
-                completionHandler.BeginInvoke(null, failedExtracts, null, null);
+                ui.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+                {
+                    ui.extractionComplete(new UnzipUpdate()
+                    {
+                        remainingFiles = failedExtracts
+                    });
+                }));
+                //completionHandler.BeginInvoke(null, failedExtracts, null, null);
             });
         }
+        public static List<GameFile> getGameFiles(string directory) => getFiles(directory).Select(e => new GameFile(e)).ToList();
+
     }
 }
