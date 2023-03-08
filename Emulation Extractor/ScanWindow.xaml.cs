@@ -65,7 +65,7 @@ namespace Emulation_Extractor
             }
             else
             {
-                var files=DirectoryScanner.getFiles(selectedDirectory);
+                var files=DirectoryTools.getFiles(selectedDirectory);
                 
                 var gFiles= files.Select(e => new GameFile(e)).ToList();
                 var zips = gFiles.Count(e=>e.isZip);
@@ -76,6 +76,7 @@ namespace Emulation_Extractor
                     {
                         case MessageBoxResult.Yes:
                             this.Close();
+                            new ZipHelperWindow(gFiles,selectedDirectory).ShowDialog();
                             break;
                         case MessageBoxResult.No:
                             this.Close();

@@ -31,7 +31,7 @@ namespace Emulation_Extractor
         }
         public GameFile(string path)
         {
-            this.isZip = DirectoryScanner.isFileZip(path);
+            this.isZip = DirectoryTools.isFileZip(path);
             Emulator = EmulatorClass.FindEmulator(path);
             FilePath = path;
             NameNoExtension = System.IO.Path.GetFileNameWithoutExtension(path);
