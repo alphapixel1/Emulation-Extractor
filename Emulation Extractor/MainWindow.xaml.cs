@@ -30,5 +30,10 @@ namespace Emulation_Extractor
         {
             new ScanWindow().ShowDialog();
         }
+
+        private void EmulatorsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new EmulatorSetupWindow().ShowDialog();
+        }
     }
 }

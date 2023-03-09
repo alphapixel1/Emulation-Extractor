@@ -1,13 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace Emulation_Extractor
 {
@@ -23,15 +19,36 @@ namespace Emulation_Extractor
         {
             var emulatorsStr = Encoding.Default.GetString(Properties.Resources.Emulators);            
             Emulators=JsonConvert.DeserializeObject<List<EmulatorClass>>(emulatorsStr);
-           /* foreach (var em in Emulators)
-            {
-                Debug.WriteLine(em.ToString());
-            }*/
         }
+
+        internal static void SaveNewEmulators(List<EmulatorClass> emulatorClasses)
+        {
+            Emulators = emulatorClasses;
+            throw new NotImplementedException();
+        }
+
         [JsonProperty("fileType")]
         public List<String> FileTypes { get; set; }
+        
+        /*For Binding*/
+        public string FileTypesStr { get
+            {
+                return string.Join(", ",FileTypes.Select(e=>"."+e));
+            }
+        }
+
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("outputDirectory")]
+        public string OutputDirectory { get; set; }
+
+        public string OutputDirectoryBindingStr { get {
+                if (OutputDirectory == null || OutputDirectory==String.Empty)
+                    return "Auto";
+                return OutputDirectory;
+            } 
+        }
         public EmulatorClass(string name, List<string> fileTypes)
         {
             FileTypes = fileTypes;
@@ -47,6 +64,8 @@ namespace Emulation_Extractor
                 "\"fileTypes\":["+String.Join(",",FileTypes)+"]\n"+
                 "}";
         }
+        public EmulatorClass Clone() => new EmulatorClass(Name, FileTypes) { OutputDirectory = this.OutputDirectory };
+
     }
 
 }

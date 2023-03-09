@@ -8,7 +8,7 @@
         Title="Scanned Files" Width="733"
         ResizeMode="CanResize" Height="376" Loaded="Window_Loaded"
         >
-    <Grid Background="#FF2D2D2D">
+    <Grid Background="{StaticResource RetroGrey}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -19,21 +19,30 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <TextBlock Foreground="White" HorizontalAlignment="Center" FontSize="15">Emulators</TextBlock>
-                <ListBox Grid.Row="1" x:Name="EmulatorListBox" ItemsSource="{Binding}">
-                    <ListBoxItem>
-                        <TextBlock Text="{Binding Name}"></TextBlock>
-                    </ListBoxItem>     
-                </ListBox>
-               
+                <Button Click="ConfigureEmulatorOutputBtn_Click" Margin="5">Configure Emulator Output</Button>
+                <StackPanel Grid.Row="1">
+                    <TextBlock Foreground="White">Sorted Output:</TextBlock>
+                    <RadioButton Foreground="White" IsChecked="True">Set Directories</RadioButton>
+                    <RadioButton Foreground="White">Auto in Scan Directory</RadioButton>
+                    <RadioButton Foreground="White">All in One Folder</RadioButton>
+                </StackPanel>
+                <Grid Grid.Row="2" Height="25px" Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Margin="5,2">Start</Button>
+                    <Button Grid.Column="1" Margin="5,2">Cancel</Button>
+                </Grid>
             </Grid>
-            <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Background="White" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Foreground="White" Background="{DynamicResource RetroGrey}" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}"></GridViewColumn>
-                        <GridViewColumn Header="Emulator" Width="120" DisplayMemberBinding="{Binding EmulatorName}"></GridViewColumn>
-                        <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
+                        <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+                        <GridViewColumn Header="Emulator" Width="120" DisplayMemberBinding="{Binding EmulatorName}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+                        <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.GroupStyle>
@@ -42,10 +51,8 @@
                             <DataTemplate DataType="GameFile">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-
                                     <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
                                 </StackPanel>
-
                             </DataTemplate>
                         </GroupStyle.HeaderTemplate>
                         <GroupStyle.ContainerStyle>
@@ -53,11 +60,11 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Expander IsExpanded="True">
+                                            <Expander IsExpanded="True" Foreground="White">
                                                 <Expander.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-                                                        <TextBlock Text="{Binding ItemCount}" Margin="5,0" VerticalAlignment="Center"/>
+                                                        <TextBlock FontWeight="Bold" Foreground="White" FontSize="14" Text="{Binding Name}"/>
+                                                        <TextBlock Text="{Binding ItemCount}" Foreground="Wheat" Margin="5,0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Expander.Header>
                                                 <ItemsPresenter />
@@ -72,15 +79,8 @@
             </ListView>
         </DockPanel>
         
-        <Grid Grid.Row="2" Height="28px">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Margin="5,2">Go</Button>
-            <Button Grid.Column="1" Margin="5,2">Cancel</Button>
-        </Grid>
-        <DockPanel LastChildFill="False" Grid.RowSpan="2"/>
+        
+        
     </Grid>
     
 </Window>

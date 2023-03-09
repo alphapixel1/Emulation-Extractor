@@ -8,7 +8,8 @@
         Title="Emulation Extraction" Height="450" Width="800">
     <Grid Background="#FF2D2D2D">
         <StackPanel Margin="5,5,5,5">
-            <Button Click="StartBtn_Click">Start</Button>
+            <Button Click="StartBtn_Click" Margin="5">Start</Button>
+            <Button Click="EmulatorsBtn_Click" Margin="5">Emulators</Button>
         </StackPanel>
     </Grid>
 </Window>

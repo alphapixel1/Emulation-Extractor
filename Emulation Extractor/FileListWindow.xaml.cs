@@ -26,7 +26,7 @@ namespace Emulation_Extractor
         public FileListWindow(List<GameFile> files,string scanDirectory)
         {
             //GameFiles= files;
-            GameFiles=files.Where(e=>e.Emulator!=null || e.isZip).ToList();
+            GameFiles=files.Where(e=>e.Emulator!=null).ToList();
             InitializeComponent();
             this.scanDirectory = scanDirectory;
         }
@@ -35,13 +35,25 @@ namespace Emulation_Extractor
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FileListView.ItemsSource = GameFiles;
-            HashSet<EmulatorClass> ems = new(GameFiles.Select(e => e.Emulator));
+            HashSet<EmulatorClass> ems = new(GameFiles.Select(e => e.Emulator!));
             //EmulatorListBox.ItemsSource= ems;
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(FileListView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("EmulatorName");
             //groupDescription.CustomSort =  new MyComparer();
             view.GroupDescriptions.Add(groupDescription);
             
+        }
+
+        private void ConfigureEmulatorOutputBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var esw=new EmulatorSetupWindow();
+            esw.ShowDialog();
+            if (esw.ChangesSaved)
+            {
+                Close();
+                var gFiles = DirectoryTools.getGameFiles(scanDirectory);
+                new ZipHelperWindow(gFiles, scanDirectory).ShowDialog();
+            }
         }
     }
 }

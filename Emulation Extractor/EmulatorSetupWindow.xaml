@@ -1,0 +1,63 @@
+﻿<Window x:Class="Emulation_Extractor.EmulatorSetupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Emulation_Extractor"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="EmulatorSetupWindow" Height="450" Width="800" Background="{StaticResource RetroGrey}"
+        >
+    <Window.Resources>
+        
+
+    </Window.Resources>
+    <DockPanel Background="#FF2D2D2C">
+        <Grid DockPanel.Dock="Left" Width="225">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="#FFD6D6D6" BorderThickness="0,0,0,1">
+                <TextBlock HorizontalAlignment="Stretch" FontSize="16" TextAlignment="Center" Foreground="White">Rename Me</TextBlock>
+            </Border>
+            <StackPanel Grid.Row="1" Margin="5,0,5,0">
+                <TextBlock Foreground="White">Emulator Name</TextBlock>
+                <TextBlock HorizontalAlignment="Right" x:Name="EmulatorNameBlock" Foreground="White">None</TextBlock>
+                <TextBlock Foreground="White">File Types</TextBlock>
+                <TextBlock HorizontalAlignment="Right" x:Name="EmulatorFileTypesBlock" Foreground="White">None</TextBlock>
+                <TextBlock Foreground="White">Output Directory</TextBlock>
+                <TextBlock x:Name="OutputDirectoryBlock" HorizontalAlignment="Right" Foreground="White">None</TextBlock>
+                <Button Margin="0,2,0,2" Click="modifyEmulator_Click">Modify</Button>
+                <!---->
+                <Button Margin="0,2,0,2" Click="deleteEmulator_Click">Delete</Button>
+                <Button Margin="0,2,0,2" Click="NewEmulatorButton_Click">New Emulator</Button>
+            </StackPanel>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Margin="5" Click="SaveButton_Click">Save</Button>
+                <Button Grid.Column="2" Margin="5" Click="CloseButton_Click">Cancel</Button>
+            </Grid>
+
+        </Grid>
+        <ListView x:Name="EmulatorListView" DockPanel.Dock="Right" Background="{StaticResource ResourceKey=RetroGrey}" Foreground="White" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionMode="Single">
+            <ListView.Resources>
+                
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Emulator" Width="150" DisplayMemberBinding="{Binding Name}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+
+                    <GridViewColumn Header="Accepted File Types" Width="150" DisplayMemberBinding="{Binding FileTypesStr}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+                    <GridViewColumn Header="Output Directory" Width="250" DisplayMemberBinding="{Binding OutputDirectoryBindingStr}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DockPanel>
+</Window>
+
+    

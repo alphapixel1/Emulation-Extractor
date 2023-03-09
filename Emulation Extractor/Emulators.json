@@ -1,140 +1,189 @@
 [
-    {
-        "name":"NES",
-        "fileTypes":[
-            "nes","nez","unf","unif","fds"
-        ]
-    },
-    {
-        "name":"SNES",
-        "fileTypes":[
-            "smc","sfc"
-        ]
-    },
-    {
-        "name":"Genesis",
-        "fileTypes":[
-            "md","smd","gen"
-        ]
-    },
-    {
-        "name":"Game Gear",
-        "fileTypes":[
-            "gg"
-        ]
-    },
-    {
-        "name":"Nintendo 64",
-        "fileTypes":[
-            "z64","v64","n64","ndd"
-        ]
-    },
-    {
-        "name":"Game Boy",
-        "fileTypes":[
-            "gb"
-        ]
-    },
-    {
-        "name":"Game Boy Color",
-        "fileTypes":[
-            "gbc"
-        ]
-    },
-    {
-        "name":"Game Boy Advance",
-        "fileTypes":[
-            "gba","srl"
-        ]
-    },
-    {
-        "name":"GameCube",
-        "fileTypes":[
-            "gcm","gcz","rvz"
-        ]
-    },
-    {
-        "name":"Nintendo DS",
-        "fileTypes":[
-            "nds","srl","ids","app","dsi"
-        ]
-    },
-    {
-        "name":"Wii",
-        "fileTypes":[
-            "wbfs","wad"
-        ]
-    },
-    {
-        "name":"3DS",
-        "fileTypes":[
-            "cia","3ds"
-        ]
-    },
-    {
-        "name":"Nintendo Switch",
-        "fileTypes":[
-            "nsp","xci"
-        ]
-    },
-    {
-        "name":"Neo Geo Pocket/Color",
-        "fileTypes":[
-            "ngp","ngc"
-        ]
-    },
-    {
-        "name":"PC Engine",
-        "fileTypes":[
-            "pce"
-        ]
-    },
-    {
-        "name":"PlayStation",
-        "fileTypes":[
-            "mdf"
-        ]
-    },
-    {
-        "name":"PlayStation Vita",
-        "fileTypes":[
-            "vpk"
-        ]
-    },
-    {
-        "name":"Virtual Boy",
-        "fileTypes":[
-            "vb"
-        ]
-    },
-    {
-        "name":"WonderSwan/Color",
-        "fileTypes":[
-            "ws","wsc"
-        ]
-    },
-    {
-        "name":"IOS",
-        "fileTypes":[
-            "ipa"
-        ]
-    },
-    {
-        "name":"Android",
-        "fileTypes":[
-            "apk","obb"
-        ]
-    },
-    {
-        "name":"Other",
-        "fileTypes":[
-            "iso","chd","cso"
-        ]
-    },
-    {
-        "name":"Dreamcast",
-        "fileTypes":[
-            "cdi","gdi"
-        ]
-    }
+  {
+    "name": "NES",
+    "fileTypes": [
+      "nes",
+      "nez",
+      "unf",
+      "unif",
+      "fds"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "SNES",
+    "fileTypes": [
+      "smc",
+      "sfc"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Genesis",
+    "fileTypes": [
+      "md",
+      "smd",
+      "gen"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Game Gear",
+    "fileTypes": [
+      "gg"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Nintendo 64",
+    "fileTypes": [
+      "z64",
+      "v64",
+      "n64",
+      "ndd"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Game Boy",
+    "fileTypes": [
+      "gb"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Game Boy Color",
+    "fileTypes": [
+      "gbc"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Game Boy Advance",
+    "fileTypes": [
+      "gba",
+      "srl"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "GameCube",
+    "fileTypes": [
+      "gcm",
+      "gcz",
+      "rvz"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Nintendo DS",
+    "fileTypes": [
+      "nds",
+      "srl",
+      "ids",
+      "app",
+      "dsi"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Wii",
+    "fileTypes": [
+      "wbfs",
+      "wad"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "3DS",
+    "fileTypes": [
+      "cia",
+      "3ds"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Nintendo Switch",
+    "fileTypes": [
+      "nsp",
+      "xci"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Neo Geo Pocket/Color",
+    "fileTypes": [
+      "ngp",
+      "ngc"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "PC Engine",
+    "fileTypes": [
+      "pce"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "PlayStation",
+    "fileTypes": [
+      "mdf"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "PlayStation Vita",
+    "fileTypes": [
+      "vpk"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Virtual Boy",
+    "fileTypes": [
+      "vb"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "WonderSwan/Color",
+    "fileTypes": [
+      "ws",
+      "wsc"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "IOS",
+    "fileTypes": [
+      "ipa"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Android",
+    "fileTypes": [
+      "apk",
+      "obb"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Other",
+    "fileTypes": [
+      "iso",
+      "chd",
+      "cso"
+    ],
+    "outputDirectory": ""
+  },
+  {
+    "name": "Dreamcast",
+    "fileTypes": [
+      "cdi",
+      "gdi"
+    ],
+    "outputDirectory": ""
+  }
 ]
