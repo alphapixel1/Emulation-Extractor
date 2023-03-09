@@ -9,33 +9,34 @@
         Title="EmulatorSetupWindow" Height="450" Width="800" Background="{StaticResource RetroGrey}"
         >
     <Window.Resources>
-        
+
 
     </Window.Resources>
-    <StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Menu Background="{DynamicResource RetroGrey}" BorderBrush="{DynamicResource TableBorder}" BorderThickness="0,0,0,1">
-            <MenuItem Header="File" Foreground="White" Background="{StaticResource RetroGrey}">
+            <MenuItem Header="File" Foreground="{StaticResource TextColor}" Background="{StaticResource RetroGrey}">
                 <MenuItem Header="Save" Foreground="Black" Click="SaveButton_Click"/>
                 <Separator/>
                 <MenuItem Header="Exit" Foreground="Black" Click="CloseButton_Click"/>
             </MenuItem>
-            <MenuItem Header="Emulators" Foreground="White" Background="{StaticResource RetroGrey}">
-                <MenuItem Header="Reset" Foreground="Black"/>
+            <MenuItem Header="Emulators" Foreground="{StaticResource TextColor}" Background="{StaticResource RetroGrey}">
+                <MenuItem Header="Reset" Foreground="Black" Click="ResetMenuItem_Click"/>
                 <Separator/>
                 <MenuItem Header="Clear Emulators" Foreground="Black"/>
             </MenuItem>
         </Menu>
-        <Grid Background="#FF2D2D2C">
+        <Grid Background="#FF2D2D2C" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-      
-            <ListView BorderThickness="0" Grid.Column="1" x:Name="EmulatorListView" DockPanel.Dock="Right" Background="{StaticResource ResourceKey=RetroGrey}" Foreground="White" d:ItemsSource="{d:SampleData ItemCount=10}" SelectionMode="Single" Height="415" VerticalAlignment="Top">
-                <ListView.Resources>
-                
-                </ListView.Resources>
+
+            <ListView BorderThickness="0" ListBoxItem.Selected="EmulatorListView_Selected" Grid.Column="1" x:Name="EmulatorListView" DockPanel.Dock="Right" Background="{StaticResource ResourceKey=RetroGrey}" Foreground="{StaticResource TextColor}" d:ItemsSource="{d:SampleData ItemCount=10}" SelectionMode="Single">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Emulator" Width="150" DisplayMemberBinding="{Binding Name}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
@@ -46,7 +47,7 @@
             </ListView>
             <local:ModifyEmulatorUC Grid.Column="0" Width="200" x:Name="EmulatorEditor"></local:ModifyEmulatorUC>
         </Grid>
-    </StackPanel>
+    </Grid>
 </Window>
 
     

@@ -15,10 +15,14 @@ namespace Emulation_Extractor
             var extension = Path.GetExtension(filePath).TrimStart('.');
             return Emulators?.FirstOrDefault(e => e.isFileAccepted(extension));
         }
-        internal static void loadEmulators()
+        internal static void LoadEmulators()
         {
-            var emulatorsStr = Encoding.Default.GetString(Properties.Resources.Emulators);            
-            Emulators=JsonConvert.DeserializeObject<List<EmulatorClass>>(emulatorsStr);
+            Emulators = GetDefaultEmulators();
+        }
+        public static List<EmulatorClass> GetDefaultEmulators()
+        {
+            var emulatorsStr = Encoding.Default.GetString(Properties.Resources.Emulators);
+            return JsonConvert.DeserializeObject<List<EmulatorClass>>(emulatorsStr);
         }
 
         internal static void SaveNewEmulators(List<EmulatorClass> emulatorClasses)

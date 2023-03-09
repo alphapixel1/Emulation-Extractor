@@ -6,17 +6,22 @@
         xmlns:local="clr-namespace:Emulation_Extractor"
         mc:Ignorable="d"
         Title="ZipHelperWindow" Height="450" Width="800" Loaded="Window_Loaded">
-    <Grid>
+    <Window.Resources>
+
+
+    </Window.Resources>
+    <Grid Background="{DynamicResource RetroGrey}">
 
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0" x:Name="ZipListView" ItemsSource="{Binding GameFiles}" Background="White" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ZipListView_SelectionChanged">
+        <ListView Grid.Row="0" x:Name="ZipListView" ItemsSource="{Binding GameFiles}" Background="{DynamicResource RetroGrey}" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="ZipListView_SelectionChanged" Foreground="{StaticResource TextColor}">
+
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Zip File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}"/>
-                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
+                    <GridViewColumn Header="Zip File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
+                    <GridViewColumn Header="Path" Width="575" DisplayMemberBinding="{Binding FilePath}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
                 </GridView>
             </ListView.View>
 
@@ -37,8 +42,8 @@
 
             <Button Foreground="#FF0E40FF" Click="SelectAllButton_Click" Margin="5,0" BorderBrush="{x:Null}" Background="{x:Null}">Select All</Button>
             <Button Foreground="#FF0E40FF" Grid.Column="1" Click="DeselectAllButton_Click" Margin="5,0" BorderBrush="{x:Null}" Background="{x:Null}">Deselect All</Button>
-            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,0" x:Name="SelectedCountTextBlock" HorizontalAlignment="Center">Selected Items: 0</TextBlock>
-            <CheckBox x:Name="DeleteCheckbox" Grid.Column="3" VerticalAlignment="Center">Delete Zip After Extraction</CheckBox>
+            <TextBlock Grid.Row="0" Grid.Column="2" Margin="5,0" x:Name="SelectedCountTextBlock" HorizontalAlignment="Center" Foreground="{StaticResource TextColor}">Selected Items: 0</TextBlock>
+            <CheckBox x:Name="DeleteCheckbox" Grid.Column="3" VerticalAlignment="Center" Foreground="{StaticResource TextColor}">Delete Zip After Extraction</CheckBox>
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Click="ExtractAndScan_Click">Extract And Scan</Button>
             <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5" Click="Button_Click">Cancel</Button>
         </Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Emulation_Extractor
         }
         public string NameNoExtension { get; set; }
         public string FilePath { get; set; }
+        public string NameWithExtension => Path.GetFileName(FilePath);
 
         public GameFile(string path,bool isZip)
         {

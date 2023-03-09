@@ -43,7 +43,9 @@ namespace Emulation_Extractor
                     try
                     {
                         //Debug.WriteLine(Path.GetDirectoryName(zipFile.FilePath));
-                        if (Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension))
+                        var p=Path.GetDirectoryName(zipFile.FilePath) + "\\" + GetAvailableFolderName(zipFile.NameNoExtension, zipFile.FilePath);
+                        ZipFile.ExtractToDirectory(zipFile.FilePath, p);
+                        /*if (Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension))
                         {
                             var z = 1;
                             while (true)
@@ -57,7 +59,7 @@ namespace Emulation_Extractor
                         else
                         {
                             ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension);
-                        }
+                        }*/
                         Thread.Sleep(25);
                         ui.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                         {
@@ -86,6 +88,17 @@ namespace Emulation_Extractor
             });
         }
         public static List<GameFile> getGameFiles(string directory) => getFiles(directory).Select(e => new GameFile(e)).ToList();
+
+
+        public static string GetAvailableFolderName(string  name, string parentFolderPath)
+        {
+            if (!Directory.Exists(parentFolderPath + "\\" + name))
+                return name;
+            var i = 1;
+            while (Directory.Exists(parentFolderPath + "\\" + name + " (" + i + ")"))
+                i++;
+            return name + " (" + i + ")";
+        }
 
     }
 }

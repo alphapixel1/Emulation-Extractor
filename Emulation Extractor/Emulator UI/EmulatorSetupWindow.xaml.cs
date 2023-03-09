@@ -117,7 +117,7 @@ namespace Emulation_Extractor
         }
         public void DeleteEmulator(EmulatorClass e)
         {
-            if(MessageBox.Show("Are you sure you want to delete \"" + selectedEmulator.Name + "\"?", "Delete Emulator", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if(MessageBox.Show("Are you sure you want to delete \"" + selectedEmulator!.Name + "\"?", "Delete Emulator", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 LocalEmulators.Remove(e);
                 if (LocalEmulators.Count > 0)
@@ -127,6 +127,20 @@ namespace Emulation_Extractor
             }
             
             
+        }
+
+        private void ResetMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Reseting reverts all emulators to the preset.\n Do you want to continue?", "Reset Warning",MessageBoxButton.YesNo,MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                LocalEmulators = new ObservableCollection<EmulatorClass>(EmulatorClass.GetDefaultEmulators());
+                reloadListView();
+            }
+        }
+
+        private void EmulatorListView_Selected(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(sender.GetType().Name+",,,,,,,,,,,,,");
         }
     }
 }

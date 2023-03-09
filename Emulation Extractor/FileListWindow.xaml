@@ -24,18 +24,28 @@
                 <Button Click="ConfigureEmulatorOutputBtn_Click" Margin="5">Configure Emulator Output</Button>
                 <StackPanel Grid.Row="1">
                     <TextBlock Foreground="White">Sorted Output:</TextBlock>
-                    <RadioButton Foreground="White" IsChecked="True">Set Directories</RadioButton>
-                    <RadioButton Foreground="White">Auto in Scan Directory</RadioButton>
-                    <RadioButton Foreground="White">All in One Folder</RadioButton>
+                    <StackPanel>
+                        <RadioButton x:Name="SetDirectoriesRadio" Foreground="White" IsChecked="True">Set Directories</RadioButton>
+                        <RadioButton x:Name="AutoRadio" Foreground="White">New Folders in Scan Directory</RadioButton>
+                        <RadioButton Foreground="White" x:Name="AllInOneRadio">All in One Folder</RadioButton>
+                    </StackPanel>
+                    <Separator/>
+                    <TextBlock Foreground="{StaticResource TextColor}">Rom Behavior</TextBlock>
+                    <StackPanel>
+                        <RadioButton x:Name="MoveRomRadio" Content="Move Roms" IsChecked="true" Foreground="{StaticResource TextColor}"/>
+                        <RadioButton x:Name="CopyRomRadio" Content="Copy Roms" Foreground="{StaticResource TextColor}"/>
+                    </StackPanel>
+                    <Separator/>
+                    <Grid Grid.Row="2" Height="25px" Margin="0,5,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Margin="5,2" Click="Start_Click">Start</Button>
+                        <Button Grid.Column="1" Click="Cancel_Click" Margin="5,2">Cancel</Button>
+                    </Grid>
                 </StackPanel>
-                <Grid Grid.Row="2" Height="25px" Margin="0,0,0,5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button Margin="5,2">Start</Button>
-                    <Button Grid.Column="1" Margin="5,2">Cancel</Button>
-                </Grid>
+                
             </Grid>
             <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Foreground="White" Background="{DynamicResource RetroGrey}" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.View>

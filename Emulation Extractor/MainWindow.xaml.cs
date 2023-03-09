@@ -24,7 +24,7 @@ namespace Emulation_Extractor
     {
         public MainWindow()
         {
-            EmulatorClass.loadEmulators();
+            EmulatorClass.LoadEmulators();
             InitializeComponent();
         }
 
