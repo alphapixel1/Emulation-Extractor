@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Compression;
+using System.Windows.Forms;
+
 namespace Emulation_Extractor
 {
     /// <summary>
@@ -28,7 +30,37 @@ namespace Emulation_Extractor
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            new ScanWindow().ShowDialog();
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult fbdResult = fbd.ShowDialog();
+                if (fbdResult.ToString() != String.Empty && fbd.SelectedPath != String.Empty)
+                {
+                    var gFiles = DirectoryTools.getGameFiles(fbd.SelectedPath);
+                    var zips = gFiles.Count(e => e.isZip);
+                    if (zips > 0)
+                    {
+                        MessageBoxResult result = System.Windows.MessageBox.Show("There are (" + zips + ") Zip files, would you like them to be unzipped before scanning?", "Zip Files", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                        switch (result)
+                        {
+                            case MessageBoxResult.Yes:
+                               // this.Close();
+                                new ZipHelperWindow(gFiles, fbd.SelectedPath).ShowDialog();
+                                break;
+                            case MessageBoxResult.No:
+                               // this.Close();
+                                new FileListWindow(gFiles, fbd.SelectedPath).ShowDialog();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        //this.Close();
+                        new FileListWindow(gFiles, fbd.SelectedPath).ShowDialog();
+                    }
+                }
+            }
+
+            //new ScanWindow().ShowDialog();
         }
 
         private void EmulatorsBtn_Click(object sender, RoutedEventArgs e)

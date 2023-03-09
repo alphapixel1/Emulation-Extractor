@@ -51,7 +51,7 @@ namespace Emulation_Extractor
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-            new ScanWindow().ShowDialog();
+            //new ScanWindow().ShowDialog();
         }
 
         private void ExtractAndScan_Click(object sender, RoutedEventArgs e)

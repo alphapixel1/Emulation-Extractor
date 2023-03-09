@@ -31,35 +31,9 @@ namespace Emulation_Extractor
             LocalEmulators = new ObservableCollection<EmulatorClass>(EmulatorClass.Emulators!.Select(e => e.Clone()));
             InitializeComponent();
         }
-        private void DisplayEmulatorData(EmulatorClass? e)
-        {
-            if (e == null)
-            {
-                EmulatorNameBlock.Text = "None";
-                EmulatorNameBlock.ToolTip = "";
-
-                EmulatorFileTypesBlock.Text = "None";
-                EmulatorFileTypesBlock.ToolTip = "";
-
-                OutputDirectoryBlock.Text = "None";
-                OutputDirectoryBlock.ToolTip = "";
-            }
-            else 
-            {
-
-                EmulatorNameBlock.Text = e.Name;
-                EmulatorNameBlock.ToolTip = e.Name;
-
-                EmulatorFileTypesBlock.Text = e.FileTypesStr;
-                EmulatorFileTypesBlock.ToolTip = e.FileTypesStr;
-
-                OutputDirectoryBlock.Text = e.OutputDirectoryBindingStr;
-                OutputDirectoryBlock.ToolTip = e.OutputDirectoryBindingStr;
-            }
-        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-           
+            EmulatorEditor.parent = this;
             EmulatorListView.SelectionChanged += EmulatorListView_SelectionChanged;
             reloadListView();
         }
@@ -72,12 +46,12 @@ namespace Emulation_Extractor
         }
         private void EmulatorListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DisplayEmulatorData(selectedEmulator);
-            /*Debug.WriteLine(sender.GetType().Name + "\\\\\\\\\\\\\\\\\\\\\\");
-            ListView.select*/
+            
+            if(selectedEmulator!=null)
+                EmulatorEditor.SetEmulator(selectedEmulator);
         }
 
-        private void deleteEmulator_Click(object sender, RoutedEventArgs e)
+    /*    private void deleteEmulator_Click(object sender, RoutedEventArgs e)
         {
             if (selectedEmulator != null &&
                 MessageBox.Show("Are you sure you want to delete \""+selectedEmulator.Name+"\"?", "Delete Emulator", MessageBoxButton.YesNo,MessageBoxImage.Warning)==MessageBoxResult.Yes)
@@ -87,9 +61,9 @@ namespace Emulation_Extractor
                     EmulatorListView.SelectedIndex = 0;
                 //reloadListView();
             }
-        }
+        }*/
 
-        private void modifyEmulator_Click(object sender, RoutedEventArgs e)
+        /*private void modifyEmulator_Click(object sender, RoutedEventArgs e)
         {
             var se = selectedEmulator;
             if (se != null)
@@ -99,33 +73,60 @@ namespace Emulation_Extractor
                 if (maew.ChangesSaved)
                 {
                     LocalEmulators.Remove(se);
-                    LocalEmulators.Add(maew.emulatorClass!);
+                    LocalEmulators.Insert(0, maew.emulatorClass!);
                     EmulatorListView.SelectedItem = maew.emulatorClass;
                 }
 
             }
-        }
-       
+        }*/
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e) => this.Close();
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!EmulatorClass.Emulators.All(e => LocalEmulators!.FirstOrDefault(z => z.IsEqualValue(e)) != null)) {
+                var r = MessageBox.Show("Exiting without saving will discard all changes.\n Are you sure?", "Unsaved Changes", MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                if (r == MessageBoxResult.Yes)
+                    Close();
+            } else
+                Close();
+        }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             
             EmulatorClass.SaveNewEmulators(LocalEmulators.ToList());
             ChangesSaved = true;
-            this.Close();
+            Close();
         }
 
-        private void NewEmulatorButton_Click(object sender, RoutedEventArgs e)
+        public void NewEmulator()
         {
             var maew = new ModifyAddEmulatorWindow();
             maew.ShowDialog();
             if (maew.ChangesSaved)
             {
-                LocalEmulators.Add(maew.emulatorClass!);
+                LocalEmulators.Insert(0, maew.emulatorClass!);
                 EmulatorListView.SelectedItem = maew.emulatorClass;
             }
+        }
+        public void UpdateEmulator(EmulatorClass oldEmulator, EmulatorClass newEmulator)
+        {
+            LocalEmulators.Remove(oldEmulator);
+            LocalEmulators.Insert(0, newEmulator);
+            EmulatorListView.SelectedItem = newEmulator;
+        }
+        public void DeleteEmulator(EmulatorClass e)
+        {
+            if(MessageBox.Show("Are you sure you want to delete \"" + selectedEmulator.Name + "\"?", "Delete Emulator", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                LocalEmulators.Remove(e);
+                if (LocalEmulators.Count > 0)
+                    EmulatorListView.SelectedIndex = 0;
+                else
+                    EmulatorEditor.Blur(true);
+            }
+            
+            
         }
     }
 }

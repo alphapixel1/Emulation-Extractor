@@ -64,7 +64,14 @@ namespace Emulation_Extractor
                 "\"fileTypes\":["+String.Join(",",FileTypes)+"]\n"+
                 "}";
         }
-        public EmulatorClass Clone() => new EmulatorClass(Name, FileTypes) { OutputDirectory = this.OutputDirectory };
+        public EmulatorClass Clone() => new EmulatorClass(Name, new(FileTypes)) { OutputDirectory = this.OutputDirectory };
+
+        public bool IsEqualValue(EmulatorClass e)
+        {
+            return e.Name==Name &&
+                e.FileTypes.SequenceEqual(FileTypes) &&
+                e.OutputDirectory == OutputDirectory;
+        }
 
     }
 

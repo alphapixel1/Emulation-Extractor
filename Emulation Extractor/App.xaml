@@ -7,9 +7,10 @@
              >
     <Application.Resources>
         <SolidColorBrush x:Key="RetroGrey" Color="#FC2D2D2D"></SolidColorBrush>
-
+        <SolidColorBrush x:Key="TableBorder" Color="#FFD6D6D6"/>
 
         <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Background" Value="{StaticResource RetroGrey}"/>
         </Style>
         <DataTemplate x:Key="myHeaderTemplate">
