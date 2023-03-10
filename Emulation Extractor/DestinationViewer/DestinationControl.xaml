@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="Emulation_Extractor.DestinationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Emulation_Extractor"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+
+    <Expander IsExpanded="True" Margin="0,5,0,0">
+        <Expander.Header>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Name="FolderNameTextBlock" FontWeight="Bold" VerticalAlignment="Center" FontSize="15" Foreground="{StaticResource TextColor}">NES (Folder Name)</TextBlock>
+                <TextBlock Name="SuccessfulTextBlock" FontSize="15" Foreground="White" ToolTip="Succuessful Items/Transfers" Margin="5,0">(7)</TextBlock>
+                <TextBlock Name="PathTextBlock" MouseEnter="PathTextBlock_MouseEnter" MouseLeave="PathTextBlock_MouseLeave" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}" FontSize="12" VerticalAlignment="Center" TextDecorations="Underline">
+                    Path
+                    <TextBlock.ToolTip>
+                        Click to view in browser
+                    </TextBlock.ToolTip>
+                </TextBlock>
+            </StackPanel>
+        </Expander.Header>
+        <Grid Margin="35,0,0,0" x:Name="RomGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </Expander>
+</UserControl>

@@ -4,10 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Emulation_Extractor.Classes
+namespace Emulation_Extractor
 {
-    internal class GameFilesDestination
+    public class GameFilesDestination
     {
+        public struct ErrorFileReason
+        {
+            public GameFile GameFile;
+            public String Reason;
+        }
         public GameFilesDestination(string destination)
         {
             GameFiles = new();
@@ -16,7 +21,7 @@ namespace Emulation_Extractor.Classes
         }
 
         public List<GameFile> GameFiles { get; }
-        public List<GameFile> ErrorFiles { get; }
+        public List<ErrorFileReason> ErrorFiles { get; }
         public string Destination { get; }
     }
 }

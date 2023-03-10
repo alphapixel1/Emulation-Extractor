@@ -14,7 +14,6 @@ using System.Windows.Shapes;
 using System.Linq;
 using System.Collections;
 using System.IO;
-using Emulation_Extractor.Classes;
 using System.Diagnostics;
 
 namespace Emulation_Extractor
@@ -66,13 +65,14 @@ namespace Emulation_Extractor
 
         private void Start_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Maybe add an option to auto sort into prexisting folders and make assumptions idk");
             MessageBox.Show("use Expanding thing to show what files went where with a link to open it in explorer");
             var moveRoms = MoveRomRadio.IsChecked==true;
             List<GameFilesDestination> destinations = new();
 
             if (SetDirectoriesRadio.IsChecked == true)
             {
-
+                throw new NotImplementedException();
             }
             else if (AutoRadio.IsChecked==true)
             {
@@ -106,9 +106,10 @@ namespace Emulation_Extractor
                                 
                                 dest.GameFiles.Add(g);
                             }
-                            catch
+                            catch (Exception ex)
                             {
-                                dest.ErrorFiles.Add(g);
+                                
+                                dest.ErrorFiles.Add(new GameFilesDestination.ErrorFileReason() {GameFile=g,Reason=ex.Message });
                             }
                         }
                         MessageBox.Show("Done");
@@ -143,7 +144,7 @@ namespace Emulation_Extractor
                         }
                         catch (Exception ex)
                         {
-                            destinationClass.ErrorFiles.Add(g);
+                            destinationClass.ErrorFiles.Add(new GameFilesDestination.ErrorFileReason() { Reason=ex.Message,GameFile=g});
                             Debug.WriteLine("FileListWindow.xaml.cs:StartClick: Move All Files to one folder Error: " + ex.Message);
                         }
                     }
@@ -155,6 +156,7 @@ namespace Emulation_Extractor
                     MessageBox.Show("Output Directory could not be found\n Maybe scan folder has been deleted","IO Error",MessageBoxButton.OK,MessageBoxImage.Error);
                 }
             }
+            new FileDestinationWindow(destinations).ShowDialog();
 
             
         }

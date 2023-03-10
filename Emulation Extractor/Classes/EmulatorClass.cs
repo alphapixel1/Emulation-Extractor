@@ -60,7 +60,7 @@ namespace Emulation_Extractor
         }
 
 
-        public bool isFileAccepted(string fileExtension) => FileTypes.Contains(fileExtension);
+        public bool isFileAccepted(string fileExtension) => FileTypes.Contains(fileExtension.ToLower());
         public override string ToString()
         {
             return "{\n" +

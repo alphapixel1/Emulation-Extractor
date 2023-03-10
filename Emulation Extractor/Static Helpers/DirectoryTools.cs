@@ -15,14 +15,21 @@ namespace Emulation_Extractor
     {
         public static List<string> getFiles(string startingDirectory)
         {
-            var f=Directory.GetFiles(startingDirectory);
-            var fileList=f.ToList();
-            
-            foreach (var dir in Directory.GetDirectories(startingDirectory))
+            try
             {
-                fileList.AddRange(getFiles(dir));
+                var f = Directory.GetFiles(startingDirectory);
+                var fileList = f.ToList();
+
+                foreach (var dir in Directory.GetDirectories(startingDirectory))
+                {
+                    fileList.AddRange(getFiles(dir));
+                }
+                return fileList;
             }
-            return fileList;
+            catch (Exception ex)
+            {
+                return new();
+            }
         }
         public static bool isFileZip(string path) => Path.GetExtension(path).EndsWith(".zip");
 
@@ -42,24 +49,8 @@ namespace Emulation_Extractor
                     GameFile? zipFile = zipFiles[i];
                     try
                     {
-                        //Debug.WriteLine(Path.GetDirectoryName(zipFile.FilePath));
                         var p=Path.GetDirectoryName(zipFile.FilePath) + "\\" + GetAvailableFolderName(zipFile.NameNoExtension, zipFile.FilePath);
                         ZipFile.ExtractToDirectory(zipFile.FilePath, p);
-                        /*if (Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension))
-                        {
-                            var z = 1;
-                            while (true)
-                            {
-                                if (!Directory.Exists(Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension + "(" + z + ")"))
-                                    break;
-                                z++;
-                            }
-                            ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension + "(" + z + ")");
-                        }
-                        else
-                        {
-                            ZipFile.ExtractToDirectory(zipFile.FilePath, Path.GetDirectoryName(zipFile.FilePath) + "\\" + zipFile.NameNoExtension);
-                        }*/
                         Thread.Sleep(25);
                         ui.Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
                         {
@@ -69,8 +60,6 @@ namespace Emulation_Extractor
                                 remainingFiles = zipFiles.Count- i,
                             });
                         }));
-                        
-                      
                     }
                     catch
                     {
