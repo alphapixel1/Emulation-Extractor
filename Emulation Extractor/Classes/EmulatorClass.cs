@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Emulation_Extractor
 {
@@ -17,18 +18,42 @@ namespace Emulation_Extractor
         }
         internal static void LoadEmulators()
         {
+            if (LocalData.DoesLocalFileExist("Emulators.json"))
+                try
+                {
+                    var txt=LocalData.getFileText("Emulators.json");
+                    Emulators=DesearializeEmulators(txt);
+                    return;
+                }
+                catch
+                {
+                    MessageBox.Show("Unable to load roms from storage","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
             Emulators = GetDefaultEmulators();
         }
         public static List<EmulatorClass> GetDefaultEmulators()
         {
             var emulatorsStr = Encoding.Default.GetString(Properties.Resources.Emulators);
-            return JsonConvert.DeserializeObject<List<EmulatorClass>>(emulatorsStr);
+            return DesearializeEmulators(emulatorsStr);
         }
-
+        public static List<EmulatorClass> DesearializeEmulators(string text) => JsonConvert.DeserializeObject<List<EmulatorClass>>(text);
+        private static String SerializeEmulators()
+        {
+            return JsonConvert.SerializeObject(Emulators, Formatting.Indented);
+        }
         internal static void SaveNewEmulators(List<EmulatorClass> emulatorClasses)
         {
             Emulators = emulatorClasses;
-            throw new NotImplementedException();
+            try
+            {
+                var succ = LocalData.SaveFile("Emulators.json", SerializeEmulators());
+                if (!succ);
+                    throw new Exception();
+            }
+            catch
+            {
+                MessageBox.Show("Unable to save changes", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
         }
 
         [JsonProperty("fileType")]

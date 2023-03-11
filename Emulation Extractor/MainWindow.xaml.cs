@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO.Compression;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Emulation_Extractor
 {
@@ -26,6 +27,7 @@ namespace Emulation_Extractor
         {
             EmulatorClass.LoadEmulators();
             InitializeComponent();
+            Debug.WriteLine(LocalData.ProgramDataPath);
         }
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
