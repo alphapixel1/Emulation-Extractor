@@ -9,9 +9,9 @@
         Background="#FF2D2D2D"
         ResizeMode="NoResize" Loaded="Window_Loaded">
     <StackPanel Margin="10">
-        <TextBlock Foreground="White" Margin="0,2">Emulator Name</TextBlock>
+        <TextBlock Foreground="{StaticResource TextColor}" Margin="0,2">Emulator Name</TextBlock>
         <TextBox Margin="0,2" x:Name="EmulatorNameTextBox"/>
-        <TextBlock Foreground="White" Margin="0,2">File Types</TextBlock>
+        <TextBlock Foreground="{StaticResource TextColor}" Margin="0,2">File Types</TextBlock>
         <ListBox x:Name="FileTypesListBox" Height="100"></ListBox>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,9 +19,9 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <TextBox Margin="0,2" x:Name="FileTypeTextBox"/>
-            <Border Grid.Column="1" BorderBrush="White"  BorderThickness="1" CornerRadius="100" Height="16" Margin="2">
+            <Border Grid.Column="1" BorderBrush="{StaticResource TextColor}"  BorderThickness="1" CornerRadius="100" Height="16" Margin="2">
                 <Border.ToolTip>Enter in file extension without the period (.) and click Add</Border.ToolTip>
-                <TextBlock Width="15px" TextAlignment="Center" VerticalAlignment="Center" ToolTip="Enter in file extension without the period (.) and click Add" Foreground="White">?</TextBlock>
+                <TextBlock Width="15px" TextAlignment="Center" VerticalAlignment="Center" ToolTip="Enter in file extension without the period (.) and click Add" Foreground="{StaticResource TextColor}">?</TextBlock>
             </Border>
         </Grid>
 
@@ -37,14 +37,14 @@
             <Button Grid.Column="3" Margin="2,0,0,0" Click="Clear_FileTypes">Clear</Button>
         </Grid>
 
-        <TextBlock Foreground="White" Margin="0,2" HorizontalAlignment="Center">Output Directory</TextBlock>
+        <TextBlock Foreground="{StaticResource TextColor}" Margin="0,2" HorizontalAlignment="Center">Output Directory</TextBlock>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="OutputDirectoryTextBlock" Foreground="White" Text="Auto" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
+            <TextBlock x:Name="OutputDirectoryTextBlock" Foreground="{StaticResource TextColor}" Text="Auto" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" VerticalAlignment="Center"/>
             <Button Grid.Column="1" Margin="2,0" Padding="2,0" Click="ChangeOutputDirectory_Click">Change</Button>
             <Button Grid.Column="2" Width="20" Margin="2,0,0,0" ToolTip="Clear/Auto" Click="Clear_OutputDirectory_Click">X</Button>
         </Grid>

@@ -23,11 +23,11 @@
                 </Grid.RowDefinitions>
                 <Button Click="ConfigureEmulatorOutputBtn_Click" Margin="5">Configure Emulator Output</Button>
                 <StackPanel Grid.Row="1">
-                    <TextBlock Foreground="White">Sorted Output:</TextBlock>
+                    <TextBlock Foreground="{StaticResource TextColor}">Sorted Output:</TextBlock>
                     <StackPanel>
-                        <RadioButton x:Name="SetDirectoriesRadio" Foreground="White" IsChecked="True">Set Directories</RadioButton>
-                        <RadioButton x:Name="AutoRadio" Foreground="White">New Folders in Scan Directory</RadioButton>
-                        <RadioButton Foreground="White" x:Name="AllInOneRadio">All in One Folder</RadioButton>
+                        <RadioButton x:Name="SetDirectoriesRadio" Foreground="{StaticResource TextColor}" IsChecked="True">Set Directories</RadioButton>
+                        <RadioButton x:Name="AutoRadio" Foreground="{StaticResource TextColor}">New Folders in Scan Directory</RadioButton>
+                        <RadioButton Foreground="{StaticResource TextColor}" x:Name="AllInOneRadio">All in One Folder</RadioButton>
                     </StackPanel>
                     <Separator/>
                     <TextBlock Foreground="{StaticResource TextColor}">Rom Behavior</TextBlock>
@@ -47,7 +47,7 @@
                 </StackPanel>
                 
             </Grid>
-            <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Foreground="White" Background="{DynamicResource RetroGrey}" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView DockPanel.Dock="Right" x:Name="FileListView" ItemsSource="{Binding GameFiles}" Foreground="{StaticResource TextColor}" Background="{DynamicResource RetroGrey}" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="File Name" Width="220" DisplayMemberBinding="{Binding NameNoExtension}" HeaderContainerStyle="{StaticResource myHeaderStyle}" HeaderTemplate="{StaticResource myHeaderTemplate}"/>
@@ -70,11 +70,11 @@
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate>
-                                            <Expander IsExpanded="True" Foreground="White">
+                                            <Expander IsExpanded="True" Foreground="{StaticResource TextColor}">
                                                 <Expander.Header>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock FontWeight="Bold" Foreground="White" FontSize="14" Text="{Binding Name}"/>
-                                                        <TextBlock Text="{Binding ItemCount}" Foreground="Wheat" Margin="5,0" VerticalAlignment="Center"/>
+                                                        <TextBlock FontWeight="Bold" Foreground="{StaticResource TextColor}" FontSize="14" Text="{Binding Name}"/>
+                                                        <TextBlock Text="{Binding ItemCount}" Foreground="{StaticResource TextColor}" Margin="5,0" VerticalAlignment="Center"/>
                                                     </StackPanel>
                                                 </Expander.Header>
                                                 <ItemsPresenter />

@@ -112,7 +112,6 @@ namespace Emulation_Extractor
                                 dest.ErrorFiles.Add(new GameFilesDestination.ErrorFileReason() {GameFile=g,Reason=ex.Message });
                             }
                         }
-                        MessageBox.Show("Done");
                     }
                     catch
                     {
@@ -149,7 +148,6 @@ namespace Emulation_Extractor
                         }
                     }
                     destinations.Add(destinationClass);
-                    Debug.Write("Done Moving All Files");
                 }
                 catch
                 {

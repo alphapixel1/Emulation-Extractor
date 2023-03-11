@@ -29,7 +29,7 @@
                 <MenuItem Header="Clear Emulators" Foreground="Black"/>
             </MenuItem>
         </Menu>
-        <Grid Background="#FF2D2D2C" Grid.Row="1">
+        <Grid Background="{StaticResource RetroGrey}" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>

@@ -6,9 +6,12 @@
              
              >
     <Application.Resources>
-        <SolidColorBrush x:Key="RetroGrey" Color="#FC2D2D2D"></SolidColorBrush>
+        <SolidColorBrush x:Key="RetroGrey" Color="White"></SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor" Color="Black"/>
+        <!--<SolidColorBrush x:Key="RetroGrey" Color="#FC2D2D2D"></SolidColorBrush>
+        <SolidColorBrush x:Key="TextColor" Color="White"/>-->
         <SolidColorBrush x:Key="TableBorder" Color="#FFD6D6D6"/>
-        <SolidColorBrush x:Key="TextColor" Color="White"/>
+        
 
         <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
             <Setter Property="BorderThickness" Value="0"/>
